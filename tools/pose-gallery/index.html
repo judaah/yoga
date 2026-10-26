@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Галерея поз</title>
+    <style>
+      body { margin: 0; padding: 12px; font: 13px/1.3 -apple-system, system-ui, sans-serif; background: #f3f5f1; color: #1d2520; }
+      .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; }
+      .cell { background: #fff; border-radius: 10px; padding: 6px 8px; }
+      .cell.bad { outline: 2px solid #c2410c; }
+      .figure { width: 100%; height: auto; color: #3d7a57; display: block; }
+      .figure-mat { fill: #dfe7e0; }
+      .name { font-weight: 600; }
+      .id { color: #66706a; font-size: 11px; }
+      .gaps { font-size: 11px; color: #66706a; }
+      .gaps b { color: #c2410c; }
+      .pair { display: flex; gap: 4px; }
+      .pair > svg { flex: 1; min-width: 0; }
+      h1 { font-size: 18px; margin: 0 0 8px; }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="./gallery.tsx"></script>
+  </body>
+</html>
