@@ -5,6 +5,7 @@ import { POSES } from '../../src/data/poses';
 import { GROUPS } from '../../src/data/types';
 import { contactGap, solve } from '../../src/lib/figure';
 import { FigureSvg } from '../../src/ui/Figure';
+import { ART_ALIAS } from '../art/prompts';
 
 const TOLERANCE = 1.6;
 const params = new URLSearchParams(location.search);
@@ -31,6 +32,11 @@ function Gallery() {
               <div class="pair">
                 <FigureSvg solved={s} />
                 {p.alt && <FigureSvg solved={solve(p.alt)} />}
+              </div>
+              {/* сырые иллюстрации из art/raw — сверить позу со схемой */}
+              <div class="pair">
+                <img class="art" src={`/art/raw/${ART_ALIAS[p.id] ?? p.id}.png`} alt="" onError={(e) => (e.currentTarget.style.display = 'none')} />
+                {p.alt && <img class="art" src={`/art/raw/${p.id}_alt.png`} alt="" onError={(e) => (e.currentTarget.style.display = 'none')} />}
               </div>
               <div class="gaps">
                 {gaps.map(([c, g]) => (g > TOLERANCE ? <b key={c}>{c} {g.toFixed(1)} </b> : <span key={c}>{c} {g.toFixed(1)} </span>))}

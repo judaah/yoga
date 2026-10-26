@@ -40,4 +40,7 @@ npm run preview    # собранная версия на 8685
 - `tools/pose-gallery/` — все фигурки на одном листе (красная рамка — опора висит над полом).
 - `npx vite-node tools/fig-debug.ts <id>` — точки фигурки и зазоры опор.
 - `npx vite-node tools/plan-debug.ts '<json анкеты>'` — распечатка занятия по минутам.
-- `npx vite-node tools/make-icon.ts && npm run icons` — иконка из фигурки «дерево».
+- `tools/art/` — иллюстрации поз через OpenRouter (модель google/gemini-3.1-flash-image, ≈$0,07 за картинку):
+  `gen.ts [id…] [--note "…"] [--model …]` → art/raw, `build.ts` → public/poses + src/data/art.ts,
+  `sheet.ts` — листы «схема ↔ картинка» для проверки глазами, `icon.ts && npm run icons` — иконка.
+  Образец стиля — art/style.png, описания поз — tools/art/prompts.ts.

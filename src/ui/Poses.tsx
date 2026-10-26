@@ -73,7 +73,7 @@ export function Poses() {
         <div class="pose-grid">
           {list.map((p) => (
             <button key={p.id} class="pose-tile" onClick={() => setOpen(p)}>
-              <PoseFigure pose={p} />
+              <PoseFigure pose={p} small />
               <span class="pose-tile-name">{p.name}</span>
               <span class="pose-tile-sub">
                 <span>{GROUPS.find((g) => g.id === p.group)?.label}</span>
@@ -152,8 +152,8 @@ export function PoseSheet({ pose, onClose, onOpen }: { pose: Pose; onClose: () =
             {pose.easy && <div class="card-pad">{pose.easy}</div>}
             {easier && (
               <button class="row" onClick={() => onOpen?.(easier)}>
-                <span style={{ width: 64, flex: 'none' }}>
-                  <PoseFigure pose={easier} />
+                <span class="step-thumb">
+                  <PoseFigure pose={easier} small />
                 </span>
                 <span class="row-main">
                   <span class="row-sub">Поза полегче</span>

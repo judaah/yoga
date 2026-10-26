@@ -2,3 +2,8 @@ node_modules
 dist
 dev-dist
 .DS_Store
+art/raw
+art/ref
+art/probe
+art/log.jsonl
+art/sheets

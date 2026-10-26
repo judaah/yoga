@@ -29,7 +29,7 @@ export function PoseStrip({ plan, max = 6 }: { plan: SessionPlan; max?: number }
     <div class="pose-strip" aria-hidden="true">
       {ids.slice(0, max).map((id) => (
         <span key={id} class="pose-strip-item">
-          <PoseFigure pose={POSE_BY_ID.get(id)!} />
+          <PoseFigure pose={POSE_BY_ID.get(id)!} small />
         </span>
       ))}
     </div>
@@ -60,7 +60,7 @@ export function SessionPreview({ plan, onClose, onStart }: { plan: SessionPlan; 
               return (
                 <div class="row step-row" key={i}>
                   <span class="step-thumb">
-                    <PoseFigure pose={p} side={s.side} />
+                    <PoseFigure pose={p} side={s.side} small />
                   </span>
                   <span class="row-main">
                     <span class="row-title">{p.name}</span>

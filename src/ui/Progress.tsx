@@ -263,7 +263,7 @@ export function Progress({ day, program }: { day: string; program: Program | nul
               return (
                 <button class="row" key={m.poseId} onClick={() => setPoseOpen(m.poseId)}>
                   <span class="step-thumb">
-                    <PoseFigure pose={pose} />
+                    <PoseFigure pose={pose} small />
                   </span>
                   <span class="row-main">
                     <span class="row-title">{pose.name}</span>

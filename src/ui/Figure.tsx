@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'preact/hooks';
+import { ART_ALIAS, ART_IDS } from '../data/art';
 import type { Pose } from '../data/types';
 import { FRAME, lerpSolved, mirror, place, shapePath, shapes, solve, type Solved } from '../lib/figure';
 
@@ -27,11 +28,47 @@ export function FigureSvg({ solved, class: cls }: { solved: Solved; class?: stri
   );
 }
 
+/** Есть ли у позы иллюстрация; alt — вторая (у кошки-коровы — кошка). */
+export function artId(pose: Pose, alt = false): string | null {
+  const id = alt ? `${pose.id}_alt` : (ART_ALIAS[pose.id] ?? pose.id);
+  return ART_IDS.has(id) ? id : null;
+}
+
+/** small — уменьшенная копия для списков и миниатюр. */
+export const artUrl = (id: string, small = false) => `${import.meta.env.BASE_URL}poses/${small ? 's/' : ''}${id}.webp`;
+
 /**
- * Фигурка позы. side='left' — зеркально (вторая сторона).
- * phase 0…1 — где между основной фигуркой и второй (у динамичных поз вроде кошки-коровы).
+ * Поза: иллюстрация, а если её нет — схематичная фигурка. side='left' — зеркально (вторая сторона).
+ * phase 0…1 — где между основной картинкой и второй (у динамичных поз вроде кошки-коровы).
  */
-export function PoseFigure({ pose, side, phase = 0, class: cls }: { pose: Pose; side?: 'right' | 'left'; phase?: number; class?: string }) {
+export function PoseFigure({
+  pose,
+  side,
+  phase = 0,
+  class: cls,
+  small,
+}: {
+  pose: Pose;
+  side?: 'right' | 'left';
+  phase?: number;
+  class?: string;
+  small?: boolean;
+}) {
+  const main = artId(pose);
+  if (main) {
+    const alt = pose.alt ? artId(pose, true) : null;
+    return (
+      <span class={`pose-art ${side === 'left' ? 'is-mirror' : ''} ${cls ?? ''}`} aria-hidden="true">
+        <img src={artUrl(main, small)} alt="" decoding="async" draggable={false} />
+        {/* две картинки не смешиваем (тела не совпадают точно) — на вдохе одна, на выдохе другая, с короткой сменой */}
+        {alt && <img class="pose-art-alt" src={artUrl(alt, small)} style={{ opacity: phase >= 0.5 ? 1 : 0 }} alt="" decoding="async" draggable={false} />}
+      </span>
+    );
+  }
+  return <SchematicFigure pose={pose} side={side} phase={phase} class={cls} />;
+}
+
+function SchematicFigure({ pose, side, phase = 0, class: cls }: { pose: Pose; side?: 'right' | 'left'; phase?: number; class?: string }) {
   const base = useMemo(() => solve(pose.figure), [pose]);
   const alt = useMemo(() => (pose.alt ? solve(pose.alt) : null), [pose]);
   let s = alt && phase > 0 ? lerpSolved(base, alt, phase) : base;

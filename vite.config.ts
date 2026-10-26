@@ -16,7 +16,7 @@ export default defineConfig({
     preact(),
     VitePWA({
       registerType: 'prompt',
-      includeAssets: ['favicon.ico', 'apple-touch-icon-180x180.png', 'icon.svg'],
+      includeAssets: ['favicon.ico', 'apple-touch-icon-180x180.png'],
       manifest: {
         name: 'Йога',
         short_name: 'Йога',
@@ -36,7 +36,7 @@ export default defineConfig({
         ],
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,svg,png,ico,woff2}'],
+        globPatterns: ['**/*.{js,css,html,svg,png,ico,woff2,webp}'],
         navigateFallback: 'index.html',
       },
     }),
